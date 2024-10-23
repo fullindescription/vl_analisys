@@ -20,7 +20,7 @@ class Database:
         all_data = (
             self.session.query(UserPath)
             .filter(UserPath.Act != "EventShow")
-            .limit(10000)
+            # .limit(10000)
             .all()
         )
         event_data = set(data.EventID for data in all_data)
