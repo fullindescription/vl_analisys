@@ -63,11 +63,12 @@ class RecomendSystem:
         print(end_time - start_time)
 
     def predict(self, user_id: str) -> list[str]:
-        user_index = users.index(user_id)
-        user_predict = list(self.predicted_matrix[:, user_index : user_index + 1])
-        max_elem = max(user_predict)
-        _index = user_predict.index(max_elem)
-        return [self.features[_index]]
+        user_index = self.users.index(user_id)
+        user_predict = self.predicted_matrix[:, user_index]
+
+        top_indices = np.argsort(user_predict)[-3:][::-1]
+
+        return [self.features[i] for i in top_indices]
 
 
 if __name__ == "__main__":
